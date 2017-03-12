@@ -1,0 +1,16 @@
+{
+  "name": "chop_bot",
+  "version": "1.0.0",
+  "description": "This prototype bot is meant to provide residents with useful information without having to search for e-mails or websites.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "request": "^2.81.0"
+  }
+}
