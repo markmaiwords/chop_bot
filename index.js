@@ -3,7 +3,11 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var app = express();
 
-app.set('port', (process.env.PORT || 5000));
+var port = process.env.PORT || 5000;
+
+    server.listen(port, function () {
+        console.log('Updated : Server listening at port %d', port);
+    });
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
