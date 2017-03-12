@@ -114,17 +114,56 @@ function receivedMessage(event) {
   }
 }
 
+function sendGenericMessage(recipientId, messageText) {
+  // To be expanded in later sections
+}
+
+function sendTextMessage(recipientId, messageText) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: messageText
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+function callSendAPI(messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: { access_token: PAGE_ACCESS_TOKEN },
+    method: 'POST',
+    json: messageData
+
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var recipientId = body.recipient_id;
+      var messageId = body.message_id;
+
+      console.log("Successfully sent generic message with id %s to recipient %s", 
+        messageId, recipientId);
+    } else {
+      console.error("Unable to send message.");
+      console.error(response);
+      console.error(error);
+    }
+  });  
+}
+
 var token = "EAAO4ltKkADUBADk5zNhzPV8QZBVezODFaQRDW8q5BN4IHFihkN8y4XAKvzqLRZCTrMfase7O2Wwx6okIZBXZBElkpia4VXZBZALKMXf8uttokpkjV1AwMazS6JgbcgJWP5SQcucytdDVODdzdTRo2U0ZBlcFxoj3DIZD"
 
 // Function to echo back messages
-function sendTextMessage(sender, text) {
+/*function sendTextMessage(sender, text) {
     messageData = {
         text:text
     }
-}
+}*/
 
 //Send test message back
-function sendGenericMessage(sender) {
+/*function sendGenericMessage(sender) {
     messageData = {
         "attachment": {
             "type": "template",
@@ -171,4 +210,4 @@ function sendGenericMessage(sender) {
             console.log('Error: ', response.body.error)
         }
     })
-}
+}*/
