@@ -1,11 +1,15 @@
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
-
 var app = express();
+
+app.set('port', (process.env.PORT || 5000))
+
+// Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
+
+// Process application/json
 app.use(bodyParser.json());
-app.listen((process.env.PORT || 5000));
 
 // Server index page
 app.get("/", function (req, res) {
@@ -17,12 +21,17 @@ app.get("/", function (req, res) {
 app.get("/webhook", function (req, res) {
   if (req.query["hub.verify_token"] === process.env.VERIFY_TOKEN) {
     console.log("Verified webhook");
-    res.status(200).send(req.query["hub.challenge"]);
+    res.send(req.query["hub.challenge"]);
   } else {
     console.error("Verification failed. The tokens do not match.");
-    res.sendStatus(403);
+    res.send('Error, wrong token');
   }
 });
+
+// Spin up the Server
+app.listen(app.get('port', function() {
+    console.log('running on port', app.get('port'))
+})
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
@@ -39,6 +48,7 @@ app.post('/webhook/', function (req, res) {
 
 var token = "EAAO4ltKkADUBADk5zNhzPV8QZBVezODFaQRDW8q5BN4IHFihkN8y4XAKvzqLRZCTrMfase7O2Wwx6okIZBXZBElkpia4VXZBZALKMXf8uttokpkjV1AwMazS6JgbcgJWP5SQcucytdDVODdzdTRo2U0ZBlcFxoj3DIZD"
 
+// Function to echo back messages
 function sendTextMessage(sender, text) {
     messageData = {
         text:text
