@@ -3,7 +3,7 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var app = express();
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 5000));
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
@@ -31,7 +31,7 @@ app.get("/webhook", function (req, res) {
 // Spin up the Server
 app.listen(app.get('port', function() {
     console.log('running on port', app.get('port'))
-}))
+}));
 
 app.post('/webhook/', function (req, res) {
     messaging_events = req.body.entry[0].messaging
@@ -44,7 +44,7 @@ app.post('/webhook/', function (req, res) {
         }
     }
     res.sendStatus(200)
-})
+});
 
 var token = "EAAO4ltKkADUBADk5zNhzPV8QZBVezODFaQRDW8q5BN4IHFihkN8y4XAKvzqLRZCTrMfase7O2Wwx6okIZBXZBElkpia4VXZBZALKMXf8uttokpkjV1AwMazS6JgbcgJWP5SQcucytdDVODdzdTRo2U0ZBlcFxoj3DIZD"
 
