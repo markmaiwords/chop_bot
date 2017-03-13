@@ -202,6 +202,7 @@ app.get('/authorize', function(req, res) {
 
 
 
+<<<<<<< HEAD
 /*
 
  * Verify that the callback came from Facebook. Using the App Secret from 
@@ -253,6 +254,29 @@ function verifyRequestSignature(req, res, buf) {
     if (signatureHash != expectedHash) {
 
       throw new Error("Couldn't validate the request signature.");
+=======
+// Function to echo back messages
+function sendTextMessage(sender, text) {
+    messageData = {
+        text:text
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+>>>>>>> parent of 78993b3... still working on echo
 
     }
 <<<<<<< HEAD
