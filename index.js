@@ -40,9 +40,13 @@ app.post('/webhook/', function (req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            var d = new Date();
-            var x = d.getDate();
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200) + x)
+            
+            // Display Date
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth();
+            var year = today.getFullYear();
+            sendTextMessage(sender, "Today's day is " + month + "/" + day + "/" + year);
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
