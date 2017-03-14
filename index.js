@@ -41,7 +41,8 @@ app.post('/webhook/', function (req, res) {
                 continue
             }
             var d = new Date();
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200) + d)
+            var x = d.getDate();
+            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200) + x)
         }
         if (event.postback) {
             text = JSON.stringify(event.postback)
